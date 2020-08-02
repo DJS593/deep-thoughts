@@ -4,9 +4,8 @@ import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const Signup = () => {
-  const [formState, setFormState] = useState({ username: '', email: '', password: '' });
-
   const [addUser, { error }] = useMutation(ADD_USER);
+  const [formState, setFormState] = useState({ username: '', email: '', password: '' });
 
   // update state based on form input changes
   const handleChange = (event) => {
@@ -26,8 +25,9 @@ const Signup = () => {
     try {
       // execute addUser mutation and pass in variable data from form
       const { data } = await addUser({
-        variables: { ...formState}
+        variables: { ...formState }
       });
+      
       Auth.login(data.addUser.token);
     } catch (e) {
       console.error(e);
